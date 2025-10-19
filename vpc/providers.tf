@@ -12,3 +12,13 @@ terraform {
     }
   }
 }
+
+terraform {
+  backend "s3" {
+    bucket         = "eks-terraform-state-bucket-koil"
+    key            = "backend-tf-folder/VPC.tfstate"
+    region         = "eu-central-1"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+  }
+}
