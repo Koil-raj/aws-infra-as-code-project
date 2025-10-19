@@ -5,6 +5,6 @@ resource "aws_vpc" "main" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "ade-dev"
+    Name = "${local.eks_name}"
   }
 }
