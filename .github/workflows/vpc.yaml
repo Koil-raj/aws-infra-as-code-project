@@ -34,6 +34,13 @@ jobs:
         run: terraform plan -out=tfplan
         working-directory: ./vpc
 
+# uploads the plan output to github action artifact storage
+      - name: Upload tfplan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: ./vpc/tfplan
+
   apply:
     name: "Terraform Apply"
     runs-on: ubuntu-latest
@@ -48,6 +55,12 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Download tfplan artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: ./vpc
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
