@@ -19,6 +19,7 @@ terraform {
     key            = "backend-tf-folder/VPC.tfstate"
     region         = "eu-central-1"
     encrypt        = true
+    use_lockfile   = true
     dynamodb_table = "terraform-state-lock"
   }
 }
