@@ -115,7 +115,7 @@ resource "aws_eks_node_group" "eks-node" {
   version         = var.eks_version
   node_group_name = "${local.cluster_name}-nodeGroup"
   node_role_arn   = aws_iam_role.eks-node.arn
-  subnet_ids      = [data.aws_subnet.subnet_public_1.id, data.aws_subnet.subnet_private_2.id]
+  subnet_ids      = [data.aws_subnet.subnet_private_1.id, data.aws_subnet.subnet_private_2.id]
   ami_type        = "AL2023_x86_64_STANDARD"
 
 
