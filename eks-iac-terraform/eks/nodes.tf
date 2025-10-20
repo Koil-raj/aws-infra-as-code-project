@@ -136,7 +136,8 @@ resource "aws_eks_node_group" "eks-node" {
     aws_iam_role_policy_attachment.eks-node-AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.eks-node-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.eks-node-AmazonEC2ContainerRegistryReadOnly,
-    aws_iam_role_policy_attachment.eks-node-ebs-csi
+    aws_iam_role_policy_attachment.eks-node-ebs-csi,
+    aws_security_group.eks-node-sg
   ]
 
   tags = {
