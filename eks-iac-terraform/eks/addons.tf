@@ -7,18 +7,31 @@ resource "aws_eks_addon" "vpc_cni" {
   addon_name                  = "vpc-cni"
   addon_version               = "v1.20.2-eksbuild.1" # Optional, can be left out to get latest
   resolve_conflicts_on_update = "PRESERVE"
+
+  depends_on = [
+    aws_eks_node_group.eks-node
+  ]
 }
 
 resource "aws_eks_addon" "coredns" {
   cluster_name                = aws_eks_cluster.eks-cluster.name
   addon_name                  = "coredns"
   resolve_conflicts_on_update = "PRESERVE"
+
+  depends_on = [
+    aws_eks_node_group.eks-node
+  ]
+
 }
 
 resource "aws_eks_addon" "kube_proxy" {
   cluster_name                = aws_eks_cluster.eks-cluster.name
   addon_name                  = "kube-proxy"
   resolve_conflicts_on_update = "PRESERVE"
+
+  depends_on = [
+    aws_eks_node_group.eks-node
+  ]
 }
 
 resource "aws_eks_addon" "ebs_csi" {
@@ -39,9 +52,17 @@ resource "aws_eks_addon" "ebs_csi" {
 resource "aws_eks_addon" "pod_identity" {
   cluster_name = aws_eks_cluster.eks-cluster.name
   addon_name   = "eks-pod-identity-agent"
+
+  depends_on = [
+    aws_eks_node_group.eks-node
+  ]
 }
 
 resource "aws_eks_addon" "external_dns" {
   cluster_name = aws_eks_cluster.eks-cluster.name
   addon_name   = "external-dns"
+
+  depends_on = [
+    aws_eks_node_group.eks-node
+  ]
 }

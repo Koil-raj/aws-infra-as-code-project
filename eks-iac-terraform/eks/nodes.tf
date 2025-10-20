@@ -143,7 +143,7 @@ resource "aws_eks_node_group" "eks-node" {
   }
 
   labels = {
-    k8s_labels = "apinodes"
+    k8s_labels = "test"
   }
 
   # Allow external changes without Terraform plan difference
