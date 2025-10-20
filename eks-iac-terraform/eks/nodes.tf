@@ -91,6 +91,7 @@ resource "aws_launch_template" "eks_nodes" {
 
   network_interfaces {
     associate_public_ip_address = true
+    security_groups             = ["${aws_security_group.eks-node-sg.id}"] 
   }
 
 
@@ -164,3 +165,38 @@ resource "aws_cloudwatch_log_group" "ekscontrolplaneloggroup" {
 }
 
 
+# Custom security group for node group 
+
+resource "aws_security_group" "eks_node_sg" {
+  name        = "${local.cluster_name}-node-group-sg"
+  description = "Security group for EKS worker nodes"
+  vpc_id      = data.aws_vpc.landing_zone_vpc.id
+
+  # Allow worker nodes to communicate with EKS control plane
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]  # Usually the control plane CIDR or security group
+  }
+
+  # Allow all traffic between nodes
+  ingress {
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    self            = true
+  }
+
+  # Allow outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "${local.cluster_name}-node-group-sg"
+  }
+}

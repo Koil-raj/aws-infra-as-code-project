@@ -58,11 +58,3 @@ resource "aws_eks_addon" "pod_identity" {
   ]
 }
 
-resource "aws_eks_addon" "external_dns" {
-  cluster_name = aws_eks_cluster.eks-cluster.name
-  addon_name   = "external-dns"
-
-  depends_on = [
-    aws_eks_node_group.eks-node
-  ]
-}
