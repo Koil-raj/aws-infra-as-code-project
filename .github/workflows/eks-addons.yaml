@@ -67,5 +67,5 @@ jobs:
         working-directory: ./eks-iac-terraform/eks-addons
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve 
+        run: terraform destroy -auto-approve 
         working-directory: ./eks-iac-terraform/eks-addons
