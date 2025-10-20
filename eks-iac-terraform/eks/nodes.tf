@@ -91,7 +91,7 @@ resource "aws_launch_template" "eks_nodes" {
 
   network_interfaces {
     associate_public_ip_address = true
-    security_groups             = ["${aws_security_group.eks-node-sg.id}"] 
+    #security_groups             = ["${aws_security_group.eks-node-sg.id}"] 
   }
 
 
@@ -108,9 +108,6 @@ resource "aws_launch_template" "eks_nodes" {
   # note: in case we use the custom userdata then we should have node to cluster attaching configuration script within it, only then the nodes will get attached to the node group 
   # user_data = filebase64("${path.module}/example.sh")
 
-  depends_on = [
-    aws_security_group.eks-node-sg
-  ]
 }
 
 resource "aws_eks_node_group" "eks-node" {
@@ -131,10 +128,8 @@ resource "aws_eks_node_group" "eks-node" {
 
   launch_template {
     id = aws_launch_template.eks_nodes.id
-    #version = "$latest"
-    # using static launch configuration version to avoid unintended rolling updates for chnages to the configuration 
-    # if in case we change the instance configurations, once done update this to latest configuration number.
-    version = "2"
+    #version = "$Latest"
+    version = "1"
   }
 
   depends_on = [
@@ -142,7 +137,6 @@ resource "aws_eks_node_group" "eks-node" {
     aws_iam_role_policy_attachment.eks-node-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.eks-node-AmazonEC2ContainerRegistryReadOnly,
     aws_iam_role_policy_attachment.eks-node-ebs-csi,
-    aws_security_group.eks-node-sg
   ]
 
   tags = {
@@ -171,38 +165,3 @@ resource "aws_cloudwatch_log_group" "ekscontrolplaneloggroup" {
 }
 
 
-# Custom security group for node group 
-
-resource "aws_security_group" "eks-node-sg" {
-  name        = "${local.cluster_name}-node-group-sg"
-  description = "Security group for EKS worker nodes"
-  vpc_id      = data.aws_vpc.landing_zone_vpc.id
-
-  # Allow worker nodes to communicate with EKS control plane
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]  # Usually the control plane CIDR or security group
-  }
-
-  # Allow all traffic between nodes
-  ingress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    self            = true
-  }
-
-  # Allow outbound traffic
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "${local.cluster_name}-node-group-sg"
-  }
-}
