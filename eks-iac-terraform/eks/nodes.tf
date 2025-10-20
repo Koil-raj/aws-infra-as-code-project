@@ -168,7 +168,7 @@ resource "aws_cloudwatch_log_group" "ekscontrolplaneloggroup" {
 
 # Custom security group for node group 
 
-resource "aws_security_group" "eks_node_sg" {
+resource "aws_security_group" "eks-node-sg" {
   name        = "${local.cluster_name}-node-group-sg"
   description = "Security group for EKS worker nodes"
   vpc_id      = data.aws_vpc.landing_zone_vpc.id
