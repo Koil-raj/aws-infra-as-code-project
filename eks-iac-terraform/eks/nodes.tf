@@ -103,9 +103,14 @@ resource "aws_launch_template" "eks_nodes" {
     }
   }
 
+
   # If we have to initialize the node with custom script then we can use user_data.
   # note: in case we use the custom userdata then we should have node to cluster attaching configuration script within it, only then the nodes will get attached to the node group 
   # user_data = filebase64("${path.module}/example.sh")
+
+  depends_on = [
+    aws_security_group.eks-node-sg
+  ]
 }
 
 resource "aws_eks_node_group" "eks-node" {
