@@ -39,7 +39,7 @@ provider "aws" {
 # pulling VPC details  
 data "aws_vpc" "landing_zone_vpc" {
   tags = {
-    Name = "var.cluster_name"
+    Name = var.cluster_name
   }
 }
 
