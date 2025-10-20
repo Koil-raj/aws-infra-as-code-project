@@ -45,9 +45,9 @@ data "aws_route_table" "route_private_1" {
   }
 }
 
-data "aws_route_table" "route_public_2" {
+data "aws_route_table" "route_public_1" {
   tags = {
-    Name = "public subnet 2"
+    Name = "public subnet 1"
   }
 }
 
