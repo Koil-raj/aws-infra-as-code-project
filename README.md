@@ -11,7 +11,7 @@ Through this series, you’ll learn how to **automate provisioning**, **secure y
 | Part | Title | 
 |------|--------|
 | 🧩 **Part 1** | [Building a Production-Grade Kubernetes Cluster on AWS Using Terraform](https://koilraj.hashnode.dev/building-a-production-grade-kubernetes-cluster-on-aws-using-terraform-part-1-overview) | 
-| ⚙️ **Part 2** | [Automating VPC Setup via GitHub Actions](https://koilraj.hashnode.dev/vpc-setup-with-github-actions)) | 
+| ⚙️ **Part 2** | [Automating VPC Setup via GitHub Actions](https://koilraj.hashnode.dev/vpc-setup-with-github-actions) | 
 | ☸️ **Part 3** | [EKS Cluster Provisioning using Terraform Modules](https://koilraj.hashnode.dev/part-3-eks-cluster-provisioning-using-terraform-modules) | 
 | 🚀 **Part 4** | [EKS Add-ons – AWS Load Balancer Controller, Autoscaler, Metrics Server](https://koilraj.hashnode.dev/deploying-eks-add-ons-aws-load-balancer-controller-autoscaler-metrics-server) | 
 | 🧱 **Part 5** | [Deploying a Simple Application on Amazon EKS using Kubernetes Manifests](https://koilraj.hashnode.dev/part-5-deploying-a-simple-application-on-amazon-eks) | 
