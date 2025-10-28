@@ -1,4 +1,4 @@
-# 🏗️ Production-Grade EKS Cluster Creation Using Terraform and GitHub Actions
+# ☸️ Production-Grade EKS Cluster Creation Using Terraform and GitHub Actions
 
 This repository contains code from my [Hashnode blog series](https://koilraj.hashnode.dev/series/eks-cluster-terraform-github-actions), demonstrating how to create a robust Amazon EKS cluster with **Terraform** and CI/CD pipelines via **GitHub Actions**.
 
